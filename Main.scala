@@ -29,5 +29,13 @@ object Main {
     val exercicePartDealer = new ExercicePartDealer(filepathAnimeList,
       filepathUserAnimeList,
       filepathUserList)
+    
+    // cool commands scala
+    val udfDAteToTimestampWithNulls = udf[Timestamp, Date] { (anyDate: Date) => castDateToTimeStamp(anyDate) } // s'utilise comme une fonction
+    
+    import org.apache.spark.sql.expression.Window
+    val windowSepc = Window.patritionBy(col(bilanIdCol),col(CATEGORIE)).orederBy(col(DATE_ANALYSE).desc)
+    val df2 = df1.withColumn(myNewCol,max(col(myCol2)).over(windowSepc))
+    
   }
 }
